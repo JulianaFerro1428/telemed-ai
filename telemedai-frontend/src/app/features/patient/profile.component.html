@@ -1,0 +1,113 @@
+<app-shell>
+  <div class="page-shell">
+    <div class="page-container">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">MI CUENTA</span>
+          <h1 class="page-title">Mi perfil</h1>
+          <p class="page-subtitle">Mantén actualizados tus datos personales y antecedentes.</p>
+        </div>
+        <ion-button
+          fill="outline"
+          class="btn-outline"
+          *ngIf="!editing && patient"
+          (click)="editing = true"
+        >
+          Editar perfil
+        </ion-button>
+      </div>
+
+      <app-loading *ngIf="loading"></app-loading>
+
+      <div *ngIf="!loading && patient" class="profile-grid">
+        <section class="card profile-main">
+          <div class="profile-head">
+            <div class="large-avatar">{{ patient.user?.fullName?.charAt(0) }}</div>
+            <div>
+              <h2>{{ patient.user?.fullName }}</h2>
+              <p>{{ patient.user?.email }}</p>
+              <span class="role-pill">PACIENTE</span>
+            </div>
+          </div>
+
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div class="form-grid">
+              <ion-item>
+                <ion-input
+                  label="Nombre completo"
+                  labelPlacement="stacked"
+                  formControlName="fullName"
+                  [readonly]="!editing"
+                ></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-input
+                  label="Correo electrónico"
+                  labelPlacement="stacked"
+                  [value]="patient.user?.email"
+                  readonly
+                ></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-input
+                  label="Teléfono"
+                  labelPlacement="stacked"
+                  formControlName="phone"
+                  [readonly]="!editing"
+                ></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-input
+                  label="Fecha de nacimiento"
+                  labelPlacement="stacked"
+                  type="date"
+                  formControlName="birthDate"
+                  [readonly]="!editing"
+                ></ion-input>
+              </ion-item>
+            </div>
+
+            <ion-item>
+              <ion-textarea
+                label="Historial médico"
+                labelPlacement="stacked"
+                rows="7"
+                formControlName="medicalHistory"
+                [readonly]="!editing"
+                placeholder="Alergias, cirugías, medicamentos, antecedentes..."
+              ></ion-textarea>
+            </ion-item>
+
+            <div class="actions" *ngIf="editing">
+              <ion-button type="button" fill="clear" (click)="editing = false; patch(patient!)">
+                Cancelar
+              </ion-button>
+              <ion-button class="btn-primary" type="submit" [disabled]="saving">
+                {{ saving ? 'Guardando...' : 'Guardar cambios' }}
+              </ion-button>
+            </div>
+          </form>
+        </section>
+
+        <aside class="card tips">
+          <ion-icon name="shield-checkmark-outline"></ion-icon>
+          <h3>Tus datos están protegidos</h3>
+          <p>
+            La plataforma utiliza autenticación con JWT y mantiene las credenciales fuera de las respuestas de perfil.
+          </p>
+          <div>
+            <strong>Documento</strong>
+            <span>{{ patient.user?.identityDocument }}</span>
+          </div>
+          <div>
+            <strong>Cuenta</strong>
+            <span>{{ patient.user?.active ? 'Activa' : 'Inactiva' }}</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</app-shell>

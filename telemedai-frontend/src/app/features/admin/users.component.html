@@ -1,0 +1,30 @@
+<app-shell>
+  <div class="page-shell">
+    <div class="page-container">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">ADMINISTRACIÓN</span>
+          <h1 class="page-title">Usuarios</h1>
+          <p class="page-subtitle">Vista administrativa disponible según los endpoints expuestos por el backend.</p>
+        </div>
+      </div>
+
+      <div class="card notice">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <div>
+          <h2>Endpoint pendiente</h2>
+          <p>La API actual no expone un <code>GET /api/users</code>. Por seguridad, este frontend no inventa ese endpoint. El registro de profesionales está disponible en <a routerLink="/admin/professionals">Profesionales</a>.</p>
+        </div>
+      </div>
+
+      <div class="card current">
+        <div class="avatar">{{ (auth.getCurrentUser()?.fullName || 'A').charAt(0) }}</div>
+        <div>
+          <span>SESIÓN ACTUAL</span>
+          <h3>{{ auth.getCurrentUser()?.fullName }}</h3>
+          <p>{{ auth.getCurrentUser()?.email }} · {{ auth.getRole() }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-shell>

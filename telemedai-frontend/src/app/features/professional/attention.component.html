@@ -1,0 +1,196 @@
+<app-shell>
+  <div class="page-shell">
+    <div class="page-container">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">CONSULTA MÉDICA</span>
+          <h1 class="page-title">Atención y resumen</h1>
+          <p class="page-subtitle">Registra la atención profesional y genera el resumen posterior.</p>
+        </div>
+      </div>
+
+      <app-loading *ngIf="loading"></app-loading>
+
+      <div class="attention-layout" *ngIf="!loading">
+        <aside class="card consult-list">
+          <h3>Selecciona una cita</h3>
+          <button
+            *ngFor="let a of items"
+            [class.active]="selected?.id === a.id"
+            (click)="select(a.id)"
+          >
+            <span>{{ a.startTime | date : 'dd/MM HH:mm' }}</span>
+            <strong>{{ a.patient?.user?.fullName }}</strong>
+            <small>{{ a.status.replace('_', ' ') }}</small>
+          </button>
+          <div class="empty-state" *ngIf="items.length === 0">
+            <p>No hay consultas disponibles.</p>
+          </div>
+        </aside>
+
+        <main class="work-area" *ngIf="selected; else choose">
+          <section class="card form-section">
+            <div class="section-label">
+              <span>01</span>
+              <div>
+                <h2>Preconsulta</h2>
+                <p>Información organizada antes de la atención.</p>
+              </div>
+            </div>
+
+            <div class="summary-preview" *ngIf="pre">
+              <strong>Resumen #{{ pre.id }}</strong>
+              <p>{{ pre.consultationReason }} · {{ pre.detailedSymptoms }}</p>
+            </div>
+
+            <form
+              [formGroup]="preForm"
+              (ngSubmit)="createPre()"
+              *ngIf="!pre"
+            >
+              <ion-item>
+                <ion-input
+                  label="Motivo de consulta"
+                  labelPlacement="stacked"
+                  formControlName="consultationReason"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input
+                  label="Tiempo de evolución"
+                  labelPlacement="stacked"
+                  formControlName="evolutionTime"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-textarea
+                  label="Síntomas detallados"
+                  labelPlacement="stacked"
+                  rows="4"
+                  formControlName="detailedSymptoms"
+                ></ion-textarea>
+              </ion-item>
+              <ion-item>
+                <ion-textarea
+                  label="Antecedentes relevantes"
+                  labelPlacement="stacked"
+                  rows="3"
+                  formControlName="relevantHistory"
+                ></ion-textarea>
+              </ion-item>
+              <ion-button
+                class="btn-primary"
+                type="submit"
+                [disabled]="saving"
+              >
+                Guardar preconsulta
+              </ion-button>
+            </form>
+          </section>
+
+          <section class="card form-section">
+            <div class="section-label">
+              <span>02</span>
+              <div>
+                <h2>Atención médica</h2>
+                <p>Registro clínico realizado por el profesional.</p>
+              </div>
+            </div>
+
+            <div class="summary-preview" *ngIf="attention">
+              <strong>Atención #{{ attention.id }}</strong>
+              <p>{{ attention.diagnosis }}</p>
+            </div>
+
+            <form
+              [formGroup]="attentionForm"
+              (ngSubmit)="createAttention()"
+              *ngIf="!attention"
+            >
+              <ion-item>
+                <ion-textarea
+                  label="Diagnóstico"
+                  labelPlacement="stacked"
+                  rows="3"
+                  formControlName="diagnosis"
+                ></ion-textarea>
+              </ion-item>
+              <ion-item>
+                <ion-textarea
+                  label="Recomendaciones"
+                  labelPlacement="stacked"
+                  rows="3"
+                  formControlName="recommendations"
+                ></ion-textarea>
+              </ion-item>
+              <ion-item>
+                <ion-textarea
+                  label="Medicamentos"
+                  labelPlacement="stacked"
+                  rows="2"
+                  formControlName="medications"
+                ></ion-textarea>
+              </ion-item>
+              <ion-item>
+                <ion-textarea
+                  label="Observaciones"
+                  labelPlacement="stacked"
+                  rows="3"
+                  formControlName="observations"
+                ></ion-textarea>
+              </ion-item>
+              <ion-item>
+                <ion-textarea
+                  label="Remisión"
+                  labelPlacement="stacked"
+                  rows="2"
+                  formControlName="referral"
+                ></ion-textarea>
+              </ion-item>
+              <ion-button
+                class="btn-primary"
+                type="submit"
+                [disabled]="saving"
+              >
+                Guardar atención
+              </ion-button>
+            </form>
+          </section>
+
+          <section class="card post-section">
+            <div class="section-label">
+              <span>03</span>
+              <div>
+                <h2>Resumen posterior</h2>
+                <p>Combina la preconsulta y la atención.</p>
+              </div>
+            </div>
+
+            <div class="post-success" *ngIf="post">
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+              <strong>Resumen posterior #{{ post.id }} generado</strong>
+              <span>{{ post.generatedAt | date : 'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+
+            <ion-button
+              *ngIf="!post"
+              class="btn-primary"
+              [disabled]="!pre || !attention || saving"
+              (click)="createPost()"
+            >
+              Generar resumen posterior
+            </ion-button>
+          </section>
+        </main>
+
+        <ng-template #choose>
+          <div class="card empty-state work-area">
+            <ion-icon name="hand-left-outline"></ion-icon>
+            <h3>Selecciona una cita</h3>
+            <p>Elige una consulta de la columna izquierda para comenzar.</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</app-shell>

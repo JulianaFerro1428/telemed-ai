@@ -1,0 +1,111 @@
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 0.8fr;
+  gap: 22px;
+}
+
+.profile-main {
+  padding: 26px;
+}
+
+.profile-head {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  border-bottom: 1px solid #edf0f5;
+  padding-bottom: 22px;
+  margin-bottom: 17px;
+}
+
+.large-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  background: #eef5ff;
+  color: #2c7be5;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.profile-head h2 {
+  margin: 0;
+  color: #172b4d;
+}
+
+.profile-head p {
+  margin: 5px 0 7px;
+  color: #7b8798;
+}
+
+.role-pill {
+  font-size: 10px;
+  background: #eaf3ff;
+  color: #2c7be5;
+  padding: 5px 8px;
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 14px;
+}
+
+.profile-main ion-item {
+  --padding-start: 0;
+  margin-bottom: 8px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.tips {
+  padding: 24px;
+  height: max-content;
+}
+
+.tips > ion-icon {
+  font-size: 32px;
+  color: #2c7be5;
+}
+
+.tips h3 {
+  color: #172b4d;
+}
+
+.tips p {
+  color: #7a8798;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.tips div {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #edf0f5;
+  padding: 12px 0;
+  font-size: 12px;
+}
+
+.tips span {
+  color: #7a8798;
+}
+
+@media (max-width: 900px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

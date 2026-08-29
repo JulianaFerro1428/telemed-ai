@@ -1,0 +1,125 @@
+<app-shell>
+
+  <div class="preconsult-page">
+
+    <!-- CABECERA -->
+    <header class="preconsult-header">
+
+      <h1>Asistente IA</h1>
+
+      <div class="header-actions">
+
+        <div class="search-box">
+          <ion-icon name="search-outline"></ion-icon>
+          <input
+            type="text"
+            placeholder="Buscar médicos o especialidades..."
+          >
+        </div>
+
+        <a
+          class="notification-button"
+          routerLink="/notifications"
+          aria-label="Notificaciones"
+        >
+          <ion-icon name="notifications-outline"></ion-icon>
+          <span class="notification-dot"></span>
+        </a>
+
+        <a
+          class="profile-button"
+          routerLink="/profile"
+          aria-label="Mi perfil"
+        >
+          <ion-icon name="person-outline"></ion-icon>
+        </a>
+
+      </div>
+
+    </header>
+
+
+    <!-- PANEL PRINCIPAL -->
+    <section class="chat-card">
+
+      <!-- HEADER DEL CHAT -->
+      <div class="chat-header">
+
+        <div>
+          <h2>Nueva preconsulta</h2>
+          <p>
+            Describe tus síntomas o el motivo de tu consulta para que la IA organice tu información.
+          </p>
+        </div>
+
+        <span class="chat-status">
+          En curso
+        </span>
+
+      </div>
+
+
+      <!-- ZONA VACÍA -->
+      <div class="chat-body empty-chat">
+
+        <div class="empty-state">
+
+          <div class="empty-icon">
+            <ion-icon name="sparkles-outline"></ion-icon>
+          </div>
+
+          <h3>Inicia tu conversación con la IA</h3>
+
+          <p>
+            Escribe tu mensaje en la parte inferior para comenzar tu preconsulta.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- INPUT -->
+      <div class="chat-input-area">
+
+        <div class="input-wrapper">
+
+          <textarea
+            rows="1"
+            placeholder="Escribe aquí tu consulta..."
+          ></textarea>
+
+          <button
+            type="button"
+            class="attach-button"
+            aria-label="Adjuntar archivo"
+          >
+            <ion-icon name="attach-outline"></ion-icon>
+          </button>
+
+        </div>
+
+        <button
+          type="button"
+          class="send-button"
+          aria-label="Enviar mensaje"
+        >
+          <ion-icon name="send-outline"></ion-icon>
+        </button>
+
+      </div>
+
+
+      <!-- AVISO -->
+      <div class="medical-note">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <span>
+          El asistente solo organiza la información de tu consulta. No diagnostica ni prescribe medicamentos.
+        </span>
+      </div>
+
+    </section>
+
+  </div>
+
+</app-shell>

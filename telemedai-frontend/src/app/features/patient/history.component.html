@@ -1,0 +1,109 @@
+<app-shell>
+  <div class="page-shell">
+    <div class="page-container">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">HISTORIAL</span>
+          <h1 class="page-title">Historial y resúmenes</h1>
+          <p class="page-subtitle">Consulta las atenciones médicas que ya finalizaron.</p>
+        </div>
+      </div>
+
+      <app-loading *ngIf="loading"></app-loading>
+
+      <div class="history-layout" *ngIf="!loading">
+        <section class="history-list">
+          <article class="history-card card" *ngFor="let a of items">
+            <div class="history-date">
+              <strong>{{ a.startTime | date : 'dd' }}</strong>
+              <span>{{ a.startTime | date : 'MMM yyyy' }}</span>
+            </div>
+            <div class="history-info">
+              <span>{{ a.professional?.specialty?.name || 'Consulta médica' }}</span>
+              <h3>{{ a.professional?.user?.fullName || 'Profesional' }}</h3>
+              <p>{{ a.startTime | date : 'dd MMMM yyyy, HH:mm' }}</p>
+            </div>
+            <div class="history-actions">
+              <ion-button
+                fill="outline"
+                class="btn-outline"
+                size="small"
+                (click)="open(a)"
+              >
+                Ver resumen
+              </ion-button>
+              <ion-button fill="clear" size="small" (click)="download(a)">
+                <ion-icon name="download-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </article>
+
+          <div class="card empty-state" *ngIf="items.length === 0">
+            <ion-icon name="document-text-outline"></ion-icon>
+            <h3>Aún no tienes consultas finalizadas</h3>
+            <p>Cuando una cita pase a COMPLETADA, aparecerá aquí.</p>
+          </div>
+        </section>
+
+        <aside class="card summary-view">
+          <ng-container *ngIf="selected; else noSummary">
+            <span class="eyebrow">RESUMEN POSTERIOR #{{ selected.id }}</span>
+            <h2>Resumen de la consulta</h2>
+
+            <div class="summary-block">
+              <label>Preconsulta</label>
+              <p>
+                <strong>Motivo:</strong>
+                {{ selected.preconsultationSummary?.consultationReason }}
+              </p>
+              <p>
+                <strong>Evolución:</strong>
+                {{ selected.preconsultationSummary?.evolutionTime || 'No registrado' }}
+              </p>
+              <p>
+                <strong>Síntomas:</strong>
+                {{ selected.preconsultationSummary?.detailedSymptoms }}
+              </p>
+              <p>
+                <strong>Antecedentes:</strong>
+                {{ selected.preconsultationSummary?.relevantHistory || 'No registrados' }}
+              </p>
+            </div>
+
+            <div class="summary-block">
+              <label>Atención médica</label>
+              <p>
+                <strong>Diagnóstico:</strong>
+                {{ selected.attentionSummary?.diagnosis }}
+              </p>
+              <p>
+                <strong>Recomendaciones:</strong>
+                {{ selected.attentionSummary?.recommendations }}
+              </p>
+              <p>
+                <strong>Medicamentos:</strong>
+                {{ selected.attentionSummary?.medications || 'No registrados' }}
+              </p>
+              <p>
+                <strong>Observaciones:</strong>
+                {{ selected.attentionSummary?.observations || 'No registradas' }}
+              </p>
+              <p>
+                <strong>Remisión:</strong>
+                {{ selected.attentionSummary?.referral || 'No registrada' }}
+              </p>
+            </div>
+          </ng-container>
+
+          <ng-template #noSummary>
+            <div class="empty-state">
+              <ion-icon name="reader-outline"></ion-icon>
+              <h3>Selecciona una consulta</h3>
+              <p>El resumen posterior combina la preconsulta y la atención profesional.</p>
+            </div>
+          </ng-template>
+        </aside>
+      </div>
+    </div>
+  </div>
+</app-shell>

@@ -1,0 +1,88 @@
+<app-shell>
+  <div class="page-shell">
+    <div class="page-container narrow">
+      <a routerLink="/appointments" class="back">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        Volver a mis citas
+      </a>
+
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">NUEVA CONSULTA</span>
+          <h1 class="page-title">Agendar cita</h1>
+          <p class="page-subtitle">Selecciona un profesional y un horario.</p>
+        </div>
+      </div>
+
+      <app-loading *ngIf="loading" message="Cargando profesionales..."></app-loading>
+
+      <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="submit()" class="card booking-card">
+        <div class="step">
+          <span>1</span>
+          <div>
+            <h3>Profesional</h3>
+            <p>Elige quién atenderá tu consulta.</p>
+          </div>
+        </div>
+
+        <ion-item>
+          <ion-select
+            label="Profesional"
+            labelPlacement="stacked"
+            formControlName="professionalId"
+            placeholder="Selecciona un profesional"
+          >
+            <ion-select-option *ngFor="let p of list" [value]="p.id">
+              {{ p.user?.fullName }} · {{ p.specialty?.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <div class="step">
+          <span>2</span>
+          <div>
+            <h3>Horario</h3>
+            <p>Usa una fecha futura. El backend validará disponibilidad.</p>
+          </div>
+        </div>
+
+        <div class="date-grid">
+          <ion-item>
+            <ion-input
+              label="Inicio"
+              labelPlacement="stacked"
+              type="datetime-local"
+              [min]="minDateTime()"
+              formControlName="start"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              label="Fin"
+              labelPlacement="stacked"
+              type="datetime-local"
+              [min]="minDateTime()"
+              formControlName="end"
+            ></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="notice">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <span>
+            La API actual no expone bloques de disponibilidad; por eso el frontend envía el rango seleccionado y el backend decide si puede crearse la cita.
+          </span>
+        </div>
+
+        <ion-button
+          expand="block"
+          class="btn-primary"
+          type="submit"
+          [disabled]="saving"
+        >
+          {{ saving ? 'Agendando...' : 'Confirmar cita' }}
+        </ion-button>
+      </form>
+    </div>
+  </div>
+</app-shell>

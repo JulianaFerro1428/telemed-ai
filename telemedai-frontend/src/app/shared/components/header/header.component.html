@@ -1,0 +1,31 @@
+<header class="topbar">
+
+  <a class="brand" routerLink="/">
+    <img src="assets/images/logo.svg" alt="TeleMed IA">
+    <span>TeleMed <b>IA</b></span>
+  </a>
+
+  <nav class="desktop-nav" *ngIf="!auth.isAuthenticated()">
+    <a routerLink="/">Inicio</a>
+    <a href="#how">¿Cómo funciona?</a>
+    <a href="#services">Servicios</a>
+    <a href="#about">Sobre nosotros</a>
+  </nav>
+
+  <div class="actions" *ngIf="!auth.isAuthenticated()">
+    <ion-button fill="outline" routerLink="/login">
+      Iniciar sesión
+    </ion-button>
+  </div>
+
+  <div class="actions" *ngIf="auth.isAuthenticated()">
+    <ion-button fill="clear" routerLink="/dashboard">
+      Mi panel
+    </ion-button>
+
+    <ion-button class="btn-primary" (click)="logout()">
+      Salir
+    </ion-button>
+  </div>
+
+</header>

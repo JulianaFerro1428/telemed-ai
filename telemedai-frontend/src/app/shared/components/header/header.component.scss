@@ -1,0 +1,80 @@
+.topbar {
+  height: 90px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 clamp(22px, 6vw, 94px);
+  gap: 30px;
+  border-bottom: 1px solid #edf0f5;
+  position: relative;
+  z-index: 20;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #172b4d;
+  font-size: 22px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.brand img {
+  width: 45px;
+  height: 45px;
+}
+
+.brand b {
+  color: #2c7be5;
+}
+
+.desktop-nav {
+  display: flex;
+  gap: 34px;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.desktop-nav a {
+  font-size: 16px;
+  color: #172b4d;
+}
+
+.desktop-nav a:hover {
+  color: #2c7be5;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.actions ion-button {
+  margin: 0;
+}
+
+@media (max-width: 800px) {
+  .topbar {
+    height: 72px;
+    padding: 0 15px;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .actions ion-button:first-child {
+    display: none;
+  }
+
+  .brand {
+    font-size: 18px;
+  }
+
+  .brand img {
+    width: 39px;
+    height: 39px;
+  }
+}

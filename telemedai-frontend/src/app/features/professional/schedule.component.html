@@ -1,0 +1,81 @@
+<app-shell>
+  <div class="page-shell">
+    <div class="page-container">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">PANEL PROFESIONAL</span>
+          <h1 class="page-title">Mi agenda</h1>
+          <p class="page-subtitle">Gestiona tu jornada y consulta las citas asignadas.</p>
+        </div>
+      </div>
+
+      <div class="dev-card card">
+        <div>
+          <strong>ID de profesional para pruebas</strong>
+          <small>La API actual no incluye el ID en el JWT. Para pruebas locales puedes establecerlo aquí.</small>
+        </div>
+        <div class="dev-input">
+          <ion-input type="number" [(ngModel)]="profileId"></ion-input>
+          <ion-button class="btn-primary" size="small" (click)="saveId()">Aplicar</ion-button>
+        </div>
+      </div>
+
+      <app-loading *ngIf="loading"></app-loading>
+
+      <div class="professional-head card" *ngIf="!loading">
+        <div class="large-avatar">
+          <ion-icon name="medical-outline"></ion-icon>
+        </div>
+        <div>
+          <h2>{{ professional?.user?.fullName || 'Profesional' }}</h2>
+          <p>{{ professional?.specialty?.name || 'No se pudo cargar la especialidad' }}</p>
+        </div>
+        <div class="metric">
+          <strong>{{ today.length }}</strong>
+          <span>citas hoy</span>
+        </div>
+        <div class="metric">
+          <strong>{{ items.length }}</strong>
+          <span>citas totales</span>
+        </div>
+      </div>
+
+      <div class="card table-card">
+        <div class="table-title">
+          <h2>Agenda completa</h2>
+          <span>Ordenada por fecha</span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Paciente</th>
+                <th>Especialidad</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let a of items">
+                <td>{{ a.startTime | date : 'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ a.patient?.user?.fullName }}</td>
+                <td>{{ professional?.specialty?.name }}</td>
+                <td>
+                  <span class="status status-{{ a.status.toLowerCase().replace('_', '-') }}">
+                    {{ a.status.replace('_', ' ') }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="empty-state" *ngIf="items.length === 0">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <p>No hay citas asignadas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-shell>

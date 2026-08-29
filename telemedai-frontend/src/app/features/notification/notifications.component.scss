@@ -1,0 +1,52 @@
+.notification-list {
+  max-width: 850px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notification {
+  padding: 17px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  position: relative;
+}
+
+.n-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  background: #eef5ff;
+  color: #2c7be5;
+  display: grid;
+  place-items: center;
+  font-size: 21px;
+}
+
+.notification > div:nth-child(2) {
+  flex: 1;
+}
+
+.notification span {
+  font-size: 10px;
+  color: #2c7be5;
+  font-weight: 800;
+}
+
+.notification h3 {
+  font-size: 14px;
+  color: #172b4d;
+  margin: 4px 0;
+}
+
+.notification small {
+  color: #8a96a6;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #2c7be5;
+  border-radius: 50%;
+}

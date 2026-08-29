@@ -1,0 +1,147 @@
+.dev-card {
+  padding: 14px 17px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 16px;
+  background: #fffdf5;
+  border-color: #f2e6bc;
+}
+
+.dev-card strong,
+.dev-card small {
+  display: block;
+}
+
+.dev-card strong {
+  font-size: 12px;
+  color: #7c6218;
+}
+
+.dev-card small {
+  font-size: 11px;
+  color: #9a8860;
+  margin-top: 3px;
+}
+
+.dev-input {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.dev-input ion-input {
+  --background: #fff;
+  width: 90px;
+  border: 1px solid #e6dcae;
+  border-radius: 8px;
+  --padding-start: 8px;
+}
+
+.professional-head {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.professional-head h2 {
+  margin: 0;
+  color: #172b4d;
+}
+
+.professional-head p {
+  margin: 4px 0;
+  color: #2c7be5;
+}
+
+.professional-head .metric {
+  margin-left: auto;
+  text-align: center;
+  border-left: 1px solid #edf0f5;
+  padding-left: 22px;
+}
+
+.professional-head .metric + .metric {
+  margin-left: 0;
+}
+
+.metric strong,
+.metric span {
+  display: block;
+}
+
+.metric strong {
+  font-size: 24px;
+  color: #172b4d;
+}
+
+.metric span {
+  font-size: 10px;
+  color: #8a96a6;
+}
+
+.table-card {
+  padding: 20px;
+}
+
+.table-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.table-title h2 {
+  margin: 0;
+  color: #172b4d;
+}
+
+.table-title span {
+  font-size: 11px;
+  color: #8a96a6;
+}
+
+.table-wrap {
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 13px;
+  border-bottom: 1px solid #edf0f5;
+  font-size: 12px;
+}
+
+th {
+  color: #8a96a6;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 700px) {
+  .professional-head {
+    flex-wrap: wrap;
+  }
+
+  .professional-head .metric {
+    margin-left: auto;
+  }
+
+  .dev-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dev-input {
+    width: 100%;
+  }
+}

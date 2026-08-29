@@ -1,0 +1,82 @@
+<div class="auth-page">
+  <div class="auth-visual">
+    <a routerLink="/" class="auth-brand">
+      <img src="assets/images/logo.svg" alt="Logo">TeleMed <b>IA</b>
+    </a>
+    <div>
+      <span class="eyebrow">SALUD DIGITAL</span>
+      <h1>Tu salud, siempre a tu alcance.</h1>
+      <p>Gestiona tus consultas, agenda citas y prepara tu atención con nuestro asistente virtual.</p>
+    </div>
+  </div>
+
+  <div class="auth-panel">
+    <a class="mobile-brand" routerLink="/">
+      <img src="assets/images/logo.svg" alt="Logo">TeleMed <b>IA</b>
+    </a>
+
+    <div class="form-card card">
+      <span class="eyebrow">BIENVENIDO</span>
+      <h2>Iniciar sesión</h2>
+      <p>Ingresa a tu cuenta para continuar.</p>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <ion-item>
+          <ion-input
+            label="Correo electrónico"
+            labelPlacement="stacked"
+            type="email"
+            formControlName="email"
+            placeholder="tu@correo.com"
+          ></ion-input>
+        </ion-item>
+
+        <div class="form-error" *ngIf="form.controls.email.touched && form.controls.email.invalid">
+          Ingresa un correo válido.
+        </div>
+
+        <ion-item>
+          <ion-input
+            label="Contraseña"
+            labelPlacement="stacked"
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="••••••••"
+          ></ion-input>
+          <ion-button
+            fill="clear"
+            slot="end"
+            type="button"
+            (click)="showPassword = !showPassword"
+          >
+            <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <a class="forgot" routerLink="/forgot-password">¿Olvidaste tu contraseña?</a>
+
+        <ion-button
+          expand="block"
+          class="btn-primary submit"
+          type="submit"
+          [disabled]="loading"
+        >
+          {{ loading ? 'Ingresando...' : 'Iniciar sesión' }}
+        </ion-button>
+      </form>
+
+      <div class="divider">
+        <span>¿No tienes cuenta?</span>
+      </div>
+
+      <ion-button
+        expand="block"
+        fill="outline"
+        class="btn-outline"
+        routerLink="/register"
+      >
+        Crear cuenta
+      </ion-button>
+    </div>
+  </div>
+</div>

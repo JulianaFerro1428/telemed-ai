@@ -1,0 +1,35 @@
+<app-shell>
+  <div class="page-shell">
+    <div class="page-container">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">CENTRO DE AVISOS</span>
+          <h1 class="page-title">Notificaciones</h1>
+          <p class="page-subtitle">Confirmaciones, cancelaciones y recordatorios.</p>
+        </div>
+      </div>
+
+      <app-loading *ngIf="loading"></app-loading>
+
+      <div class="notification-list" *ngIf="!loading">
+        <article class="card notification" *ngFor="let n of items">
+          <div class="n-icon">
+            <ion-icon name="notifications-outline"></ion-icon>
+          </div>
+          <div>
+            <span>{{ n.type }}</span>
+            <h3>{{ n.message }}</h3>
+            <small>{{ n.sentAt | date : 'dd/MM/yyyy HH:mm' }}</small>
+          </div>
+          <span class="dot" *ngIf="!n.read"></span>
+        </article>
+
+        <div class="card empty-state" *ngIf="items.length === 0">
+          <ion-icon name="notifications-off-outline"></ion-icon>
+          <h3>No tienes notificaciones</h3>
+          <p>Las novedades de tus citas aparecerán aquí.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-shell>

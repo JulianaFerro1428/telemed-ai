@@ -1,0 +1,556 @@
+/* =====================================================
+   REGISTER - CONFIGURACIÓN GENERAL
+===================================================== */
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background: #ffffff;
+}
+
+
+/* Evita que cualquier imagen se desborde */
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.register-page {
+  width: 100%;
+  min-height: 100vh;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  background: #ffffff;
+}
+
+
+/* =====================================================
+   PANEL IZQUIERDO
+===================================================== */
+
+.register-visual {
+  min-height: 100vh;
+
+  padding: 42px 7%;
+
+  display: flex;
+  flex-direction: column;
+
+  background: linear-gradient(
+    145deg,
+    #edf6ff 0%,
+    #dcecff 100%
+  );
+}
+
+
+/* =====================================================
+   LOGO SUPERIOR
+===================================================== */
+
+.register-brand {
+  display: inline-flex;
+  align-items: center;
+
+  width: fit-content;
+
+  gap: 11px;
+
+  color: #172b4d;
+
+  font-size: 24px;
+  font-weight: 800;
+
+  text-decoration: none;
+}
+
+.register-brand .register-logo {
+  width: 50px !important;
+  height: 50px !important;
+  max-width: 50px !important;
+
+  object-fit: contain;
+}
+
+.register-brand b {
+  color: #2c7be5;
+}
+
+
+/* =====================================================
+   CONTENIDO IZQUIERDO
+===================================================== */
+
+.visual-content {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px 0;
+}
+
+.visual-copy {
+  width: 100%;
+  max-width: 620px;
+
+  text-align: center;
+
+  margin: 0 auto;
+}
+
+.visual-eyebrow {
+  display: block;
+
+  margin-bottom: 20px;
+
+  color: #173a68;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  letter-spacing: 0.6px;
+
+  text-align: center;
+}
+
+.visual-copy h1 {
+  margin: 0 auto;
+
+  max-width: 620px;
+
+  color: #172b4d;
+
+  font-size: clamp(44px, 4.6vw, 64px);
+  line-height: 1.08;
+
+  letter-spacing: -2px;
+
+  font-weight: 800;
+
+  text-align: center;
+}
+
+.visual-copy p {
+  margin: 24px auto 0;
+
+  max-width: 540px;
+
+  color: #5d6d82;
+
+  font-size: 17px;
+  line-height: 1.65;
+
+  text-align: center;
+}
+
+
+
+
+/* =====================================================
+   PANEL DERECHO
+===================================================== */
+
+.register-panel {
+  min-height: 100vh;
+
+  padding: 30px;
+
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: center;
+
+  background: #ffffff;
+}
+
+
+/* =====================================================
+   TARJETA FORMULARIO
+===================================================== */
+
+.register-card {
+  width: 100%;
+  max-width: 500px;
+
+  margin: 28px 0;
+
+  padding: 30px 34px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5eaf1;
+
+  border-radius: 18px;
+
+  box-shadow: 0 12px 38px rgba(23, 43, 77, 0.07);
+}
+
+
+/* =====================================================
+   ENCABEZADO FORMULARIO
+===================================================== */
+
+.form-header {
+  margin-bottom: 22px;
+}
+
+.form-eyebrow {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #2c7be5;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.6px;
+}
+
+.form-header h2 {
+  margin: 0;
+
+  color: #172b4d;
+
+  font-size: 30px;
+  font-weight: 800;
+
+  letter-spacing: -0.6px;
+}
+
+.form-header p {
+  margin: 6px 0 0;
+
+  color: #748196;
+
+  font-size: 14px;
+}
+
+/* =====================================================
+   CAMPOS
+===================================================== */
+
+.form-field {
+  width: 100%;
+
+  margin-bottom: 14px;
+}
+
+.form-field label {
+  display: block;
+
+  margin: 0 0 6px 2px;
+
+  color: #172b4d;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.register-input {
+  width: 100%;
+
+  min-height: 48px;
+
+  --background: #f4f6f9;
+  --color: #172b4d;
+
+  --placeholder-color: #8a95a5;
+  --placeholder-opacity: 1;
+
+  --padding-start: 15px;
+  --padding-end: 15px;
+
+  background: #f4f6f9;
+
+  border: 1px solid transparent;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  overflow: hidden;
+}
+
+.register-input.ion-focused {
+  --background: #ffffff;
+
+  background: #ffffff;
+
+  border-color: #2c7be5;
+
+  box-shadow: 0 0 0 3px rgba(44, 123, 229, 0.08);
+}
+
+
+/* =====================================================
+   CONTRASEÑAS
+===================================================== */
+
+.password-field {
+  position: relative;
+}
+
+.password-input {
+  --padding-end: 52px;
+}
+
+.password-toggle {
+  position: absolute;
+
+  z-index: 10;
+
+  right: 7px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #7a8798;
+
+  cursor: pointer;
+}
+
+.password-toggle ion-icon {
+  font-size: 21px;
+}
+
+
+/* =====================================================
+   MENSAJES ERROR
+===================================================== */
+
+.field-error {
+  display: block;
+
+  margin: 6px 0 0 3px;
+
+  color: #d94141;
+
+  font-size: 12px;
+
+  line-height: 1.4;
+}
+
+
+/* =====================================================
+   BOTÓN CREAR CUENTA
+===================================================== */
+
+.create-account-button {
+  height: 49px;
+
+  margin-top: 8px;
+
+  --background: #2c6bed;
+  --background-hover: #1e5fc0;
+
+  --color: #ffffff;
+
+  --border-radius: 9px;
+
+  --box-shadow: none;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  text-transform: none;
+}
+
+
+/* =====================================================
+   ENLACE LOGIN
+===================================================== */
+
+.login-link {
+  margin-top: 20px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid #e7ecf2;
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 6px;
+
+  color: #758297;
+
+  font-size: 13px;
+}
+
+.login-link a {
+  color: #2c6bed;
+  font-weight: 700;
+}
+
+
+/* =====================================================
+   LOGO MÓVIL
+===================================================== */
+
+.mobile-brand {
+  display: none;
+}
+
+
+/* =====================================================
+   PANTALLAS MEDIANAS
+===================================================== */
+
+@media (max-width: 1200px) {
+
+  .register-visual {
+    padding-left: 50px;
+
+    padding-right: 50px;
+  }
+
+
+  .visual-copy h1 {
+    font-size: 50px;
+  }
+
+
+  .register-illustration {
+    width: 280px !important;
+
+    opacity: 0.55;
+  }
+
+
+  .register-card {
+    max-width: 520px;
+
+    padding: 35px;
+  }
+
+}
+
+
+/* =====================================================
+   TABLET Y MÓVIL
+===================================================== */
+
+@media (max-width: 850px) {
+
+  .register-page {
+    grid-template-columns: 1fr;
+  }
+
+
+  .register-visual {
+    display: none;
+  }
+
+
+  .register-panel {
+    min-height: 100vh;
+
+    padding: 30px 18px;
+
+    flex-direction: column;
+
+    background: #f5f7fa;
+  }
+
+
+  .mobile-brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+
+    color: #172b4d;
+
+    font-size: 22px;
+
+    font-weight: 800;
+
+    text-decoration: none;
+  }
+
+
+  .mobile-logo {
+    width: 46px !important;
+
+    height: 46px !important;
+
+    max-width: 46px !important;
+
+    object-fit: contain;
+
+    flex-shrink: 0;
+  }
+
+
+  .mobile-brand b {
+    color: #2c7be5;
+  }
+
+
+  .register-card {
+    max-width: 560px;
+
+    padding: 30px 25px;
+  }
+
+}
+
+
+/* =====================================================
+   CELULAR PEQUEÑO
+===================================================== */
+
+@media (max-width: 480px) {
+
+  .register-panel {
+    padding: 24px 14px;
+  }
+
+
+  .register-card {
+    padding: 27px 20px;
+
+    border-radius: 18px;
+  }
+
+
+  .form-header h2 {
+    font-size: 30px;
+  }
+
+
+  .register-input {
+    min-height: 52px;
+  }
+
+
+  .login-link {
+    flex-wrap: wrap;
+  }
+
+}

@@ -1,0 +1,292 @@
+<div class="register-page">
+
+  <!-- =========================
+       LADO IZQUIERDO
+  ========================== -->
+  <section class="register-visual">
+
+    <a routerLink="/home" class="register-brand">
+      <img
+        class="register-logo"
+        src="assets/images/logo.svg"
+        alt="TeleMed IA"
+      >
+
+      <span>
+        TeleMed <b>IA</b>
+      </span>
+    </a>
+
+
+    <div class="visual-content">
+
+      <div class="visual-copy">
+
+        <span class="visual-eyebrow">
+          REGISTRO DE PACIENTE
+        </span>
+
+        <h1>
+          Comienza a cuidar tu salud de forma inteligente.
+        </h1>
+
+        <p>
+          Crea tu cuenta y accede a consultas, citas y herramientas
+          de preconsulta en un mismo lugar.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       LADO DERECHO
+  ========================== -->
+  <section class="register-panel">
+
+    <!-- Logo móvil -->
+    <a
+      class="mobile-brand"
+      routerLink="/home"
+    >
+      <img
+        class="mobile-logo"
+        src="assets/images/logo.svg"
+        alt="TeleMed IA"
+      >
+
+      <span>
+        TeleMed <b>IA</b>
+      </span>
+    </a>
+
+
+    <div class="register-card">
+
+      <!-- CABECERA -->
+      <div class="form-header">
+
+        <span class="form-eyebrow">
+          NUEVA CUENTA
+        </span>
+
+        <h2>
+          Crear cuenta
+        </h2>
+
+        <p>
+          Completa tus datos para registrarte como paciente.
+        </p>
+
+      </div>
+
+
+      <!-- =========================
+           FORMULARIO
+      ========================== -->
+      <form
+        [formGroup]="form"
+        (ngSubmit)="submit()"
+      >
+
+        <!-- NOMBRE -->
+        <div class="form-field">
+
+          <label for="fullName">
+            Nombre completo
+          </label>
+
+          <ion-input
+            id="fullName"
+            class="register-input"
+            placeholder="Juan Pérez"
+            formControlName="fullName">
+          </ion-input>
+
+          <span
+            class="field-error"
+            *ngIf="
+              form.controls.fullName.touched &&
+              form.controls.fullName.invalid
+            ">
+            Ingresa un nombre válido.
+          </span>
+
+        </div>
+
+
+        <!-- CORREO -->
+        <div class="form-field">
+
+          <label for="email">
+            Correo electrónico
+          </label>
+
+          <ion-input
+            id="email"
+            class="register-input"
+            type="email"
+            placeholder="juan@correo.com"
+            formControlName="email">
+          </ion-input>
+
+          <span
+            class="field-error"
+            *ngIf="
+              form.controls.email.touched &&
+              form.controls.email.invalid
+            ">
+            Ingresa un correo electrónico válido.
+          </span>
+
+        </div>
+
+
+        <!-- DOCUMENTO -->
+        <div class="form-field">
+
+          <label for="identityDocument">
+            Documento de identidad
+          </label>
+
+          <ion-input
+            id="identityDocument"
+            class="register-input"
+            placeholder="Número de documento"
+            formControlName="identityDocument">
+          </ion-input>
+
+          <span
+            class="field-error"
+            *ngIf="
+              form.controls.identityDocument.touched &&
+              form.controls.identityDocument.invalid
+            ">
+            El documento es obligatorio.
+          </span>
+
+        </div>
+
+
+        <!-- CONTRASEÑA -->
+        <div class="form-field">
+
+          <label for="password">
+            Contraseña
+          </label>
+
+          <div class="password-field">
+
+            <ion-input
+              id="password"
+              class="register-input password-input"
+              placeholder="Mínimo 8 caracteres"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password">
+            </ion-input>
+
+            <button
+              type="button"
+              class="password-toggle"
+              aria-label="Mostrar u ocultar contraseña"
+              (click)="showPassword = !showPassword"
+            >
+              <ion-icon
+                [name]="showPassword
+                  ? 'eye-off-outline'
+                  : 'eye-outline'">
+              </ion-icon>
+            </button>
+
+          </div>
+
+          <span
+            class="field-error"
+            *ngIf="
+              form.controls.password.touched &&
+              form.controls.password.invalid
+            ">
+            La contraseña debe tener al menos 8 caracteres.
+          </span>
+
+        </div>
+
+
+        <!-- TELÉFONO -->
+        <div class="form-field">
+
+          <label for="phone">
+            Teléfono
+          </label>
+
+          <ion-input
+            id="phone"
+            class="register-input"
+            type="tel"
+            placeholder="300 000 0000"
+            formControlName="phone">
+          </ion-input>
+
+          <span
+            class="field-error"
+            *ngIf="
+              form.controls.phone.touched &&
+              form.controls.phone.invalid
+            ">
+            Ingresa un teléfono válido.
+          </span>
+
+        </div>
+
+
+        <!-- FECHA NACIMIENTO -->
+        <div class="form-field">
+
+          <label for="birthDate">
+            Fecha de nacimiento
+          </label>
+
+          <ion-input
+            id="birthDate"
+            class="register-input"
+            type="date"
+            formControlName="birthDate">
+          </ion-input>
+
+        </div>
+
+
+        <!-- BOTÓN -->
+        <ion-button
+          expand="block"
+          class="create-account-button"
+          type="submit"
+          [disabled]="loading"
+        >
+          {{ loading ? 'Creando cuenta...' : 'Crear cuenta' }}
+        </ion-button>
+
+      </form>
+
+
+      <!-- LOGIN -->
+      <div class="login-link">
+
+        <span>
+          ¿Ya tienes cuenta?
+        </span>
+
+        <a routerLink="/login">
+          Iniciar sesión
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

@@ -1,0 +1,7 @@
+{
+  "name": "telemed-frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

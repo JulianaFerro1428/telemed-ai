@@ -1,0 +1,552 @@
+/* =====================================================
+   CONFIGURACIÓN GENERAL DEL HOME
+===================================================== */
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+}
+
+.home-page {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #ffffff;
+}
+
+
+.section-heading-home {
+  text-align: center;
+  margin-bottom: 55px;
+}
+
+.section-label {
+  display: block;
+  color: var(--tm-primary);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.section-heading-home h2 {
+  margin: 0;
+  color: var(--tm-navy);
+  font-size: clamp(32px, 4vw, 44px);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+  min-height: 625px;
+  padding: 90px clamp(30px, 6vw, 100px);
+  background: #eef6ff;
+
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 70px;
+  align-items: center;
+}
+
+.hero-copy {
+  max-width: 750px;
+}
+
+.eyebrow {
+  display: inline-block;
+
+  background: #ffffff;
+  color: var(--tm-primary);
+
+  border-radius: 999px;
+
+  padding: 8px 14px;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.hero h1 {
+  margin: 30px 0 25px;
+
+  max-width: 720px;
+
+  color: var(--tm-navy);
+
+  font-size: clamp(44px, 5vw, 65px);
+  line-height: 1.1;
+
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+.hero p {
+  margin: 0;
+
+  max-width: 730px;
+
+  color: #58677b;
+
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.hero-actions {
+  margin-top: 30px;
+}
+
+.hero-button {
+  height: 51px;
+  min-width: 205px;
+
+  --border-radius: 9px;
+
+  font-weight: 700;
+  text-transform: none;
+}
+
+.hero-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-visual img {
+  display: block;
+
+  width: 100%;
+  max-width: 575px;
+  height: 445px;
+
+  object-fit: cover;
+
+  border-radius: 26px;
+}
+
+
+/* =====================================================
+   ASISTENTE MÉDICO IA
+===================================================== */
+
+.assistant-section {
+  background: #ffffff;
+
+  padding: 100px clamp(30px, 6vw, 105px);
+}
+
+.assistant-content {
+  max-width: 1400px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+
+  align-items: center;
+
+  gap: 75px;
+}
+
+.assistant-image img {
+  display: block;
+
+  width: 100%;
+  max-width: 590px;
+
+  aspect-ratio: 4 / 3;
+
+  object-fit: cover;
+
+  border-radius: 22px;
+}
+
+.assistant-steps {
+  display: flex;
+  flex-direction: column;
+
+  gap: 28px;
+}
+
+.assistant-step {
+  display: grid;
+
+  grid-template-columns: 48px 1fr;
+
+  gap: 18px;
+
+  align-items: start;
+}
+
+.step-number {
+  width: 45px;
+  height: 45px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #edf5ff;
+
+  color: var(--tm-primary);
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.assistant-step h3 {
+  margin: 0 0 5px;
+
+  color: var(--tm-navy);
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.assistant-step p {
+  margin: 0;
+
+  color: var(--tm-muted);
+
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+
+/* =====================================================
+   BENEFICIOS
+===================================================== */
+
+.benefits-section {
+  background: #f5f6f8;
+
+  padding: 95px clamp(30px, 6vw, 105px);
+}
+
+.benefits-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 26px;
+}
+
+.benefit-card {
+  min-height: 230px;
+
+  padding: 35px;
+
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  box-shadow: 0 10px 30px rgba(23, 43, 77, 0.06);
+}
+
+.benefit-icon {
+  width: 52px;
+  height: 52px;
+
+  margin-bottom: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #eef5ff;
+
+  border-radius: 12px;
+}
+
+.benefit-icon ion-icon {
+  color: var(--tm-primary);
+  font-size: 27px;
+}
+
+.benefit-card h3 {
+  margin: 0 0 16px;
+
+  color: var(--tm-navy);
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.benefit-card p {
+  margin: 0;
+
+  color: var(--tm-muted);
+
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+
+/* =====================================================
+   PROCESO
+===================================================== */
+
+.process-section {
+  background: #ffffff;
+
+  padding: 100px clamp(30px, 6vw, 105px) 70px;
+}
+
+.process-grid {
+  max-width: 1450px;
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(5, 1fr);
+
+  gap: 18px;
+}
+
+.process-card {
+  min-height: 255px;
+
+  padding: 30px;
+
+  background: #f5f6f8;
+
+  border-radius: 18px;
+}
+
+.process-number {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 24px;
+
+  background: var(--tm-primary);
+
+  color: #ffffff;
+
+  border-radius: 50%;
+
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.process-card h3 {
+  margin: 0 0 18px;
+
+  color: var(--tm-navy);
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.process-card p {
+  margin: 0;
+
+  color: var(--tm-muted);
+
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+
+/* =====================================================
+   ADVERTENCIA MÉDICA
+===================================================== */
+
+.medical-warning {
+  max-width: 1450px;
+
+  margin: 95px auto 0;
+
+  padding: 27px 30px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 24px;
+
+  background: #fffaf0;
+
+  border: 1px solid #f5a400;
+
+  border-radius: 15px;
+}
+
+.warning-icon {
+  flex: 0 0 50px;
+
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f59e0b;
+
+  color: #ffffff;
+
+  border-radius: 50%;
+}
+
+.warning-icon ion-icon {
+  font-size: 27px;
+}
+
+.medical-warning h3 {
+  margin: 0 0 6px;
+
+  color: #94420c;
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.medical-warning p {
+  margin: 0;
+
+  color: #94420c;
+
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer-wrapper {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* =====================================================
+   TABLETS
+===================================================== */
+
+@media (max-width: 1100px) {
+
+  .hero {
+    grid-template-columns: 1fr 0.9fr;
+    gap: 40px;
+  }
+
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+/* =====================================================
+   MÓVILES
+===================================================== */
+
+@media (max-width: 800px) {
+
+  .hero {
+    min-height: auto;
+
+    padding: 55px 20px;
+
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+
+  .hero h1 {
+    font-size: 42px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .hero-visual img {
+    height: auto;
+  }
+
+
+  .assistant-section,
+  .benefits-section,
+  .process-section {
+    padding: 70px 20px;
+  }
+
+  .assistant-content {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+
+  .assistant-image img {
+    margin: 0 auto;
+  }
+
+
+  .benefits-grid,
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .medical-warning {
+    margin-top: 60px;
+
+    align-items: flex-start;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .hero h1 {
+    font-size: 36px;
+
+    letter-spacing: -1px;
+  }
+
+  .section-heading-home h2 {
+    font-size: 30px;
+  }
+
+  .assistant-step {
+    grid-template-columns: 42px 1fr;
+  }
+
+  .step-number {
+    width: 40px;
+    height: 40px;
+  }
+
+  .benefit-card,
+  .process-card {
+    padding: 25px;
+  }
+
+  .medical-warning {
+    flex-direction: column;
+  }
+
+}

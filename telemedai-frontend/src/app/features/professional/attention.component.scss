@@ -1,0 +1,146 @@
+.attention-layout {
+  display: grid;
+  grid-template-columns: 285px 1fr;
+  gap: 18px;
+}
+
+.consult-list {
+  padding: 15px;
+  height: max-content;
+  position: sticky;
+  top: 20px;
+}
+
+.consult-list h3 {
+  color: #172b4d;
+  margin: 5px 8px 12px;
+}
+
+.consult-list button {
+  width: 100%;
+  border: 0;
+  background: #fff;
+  border-top: 1px solid #edf0f5;
+  text-align: left;
+  padding: 12px 8px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.consult-list button:hover,
+.consult-list button.active {
+  background: #eef5ff;
+}
+
+.consult-list button span,
+.consult-list button strong,
+.consult-list button small {
+  display: block;
+}
+
+.consult-list button span {
+  font-size: 10px;
+  color: #2c7be5;
+}
+
+.consult-list button strong {
+  color: #172b4d;
+  font-size: 13px;
+  margin: 3px 0;
+}
+
+.consult-list button small {
+  color: #8a96a6;
+  font-size: 10px;
+}
+
+.work-area {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-section,
+.post-section {
+  padding: 22px;
+}
+
+.section-label {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 13px;
+}
+
+.section-label > span {
+  font-size: 11px;
+  color: #2c7be5;
+  font-weight: 800;
+  background: #eef5ff;
+  border-radius: 8px;
+  padding: 7px;
+}
+
+.section-label h2 {
+  margin: 0;
+  color: #172b4d;
+  font-size: 20px;
+}
+
+.section-label p {
+  margin: 3px 0;
+  color: #7a8798;
+  font-size: 12px;
+}
+
+.form-section ion-item {
+  --padding-start: 0;
+  margin-bottom: 6px;
+}
+
+.summary-preview {
+  background: #eef8f1;
+  border: 1px solid #d6eedf;
+  border-radius: 10px;
+  padding: 12px;
+  color: #287348;
+  font-size: 12px;
+}
+
+.summary-preview p {
+  margin: 4px 0;
+}
+
+.post-success {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #eaf8f0;
+  padding: 14px;
+  border-radius: 10px;
+  color: #267446;
+}
+
+.post-success ion-icon {
+  font-size: 28px;
+}
+
+.post-success strong {
+  color: #172b4d;
+}
+
+.post-success span {
+  margin-left: auto;
+  font-size: 11px;
+  color: #6e7d8d;
+}
+
+@media (max-width: 900px) {
+  .attention-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .consult-list {
+    position: static;
+  }
+}

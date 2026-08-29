@@ -1,0 +1,405 @@
+<app-shell>
+
+  <div class="dashboard-page">
+
+    <!-- =========================================
+         CABECERA
+    ========================================== -->
+    <header class="dashboard-header">
+
+      <h1>Dashboard</h1>
+
+      <div class="header-actions">
+
+        <div class="search-box">
+          <ion-icon name="search-outline"></ion-icon>
+
+          <input
+            type="text"
+            placeholder="Buscar médicos o especialidades..."
+          >
+        </div>
+
+
+        <a
+          class="notification-button"
+          routerLink="/notifications"
+          aria-label="Notificaciones"
+        >
+          <ion-icon name="notifications-outline"></ion-icon>
+
+          <span
+            class="notification-dot"
+            *ngIf="unreadCount > 0">
+          </span>
+        </a>
+
+
+        <a
+          class="dashboard-avatar"
+          routerLink="/profile"
+          title="Mi perfil"
+        >
+          {{ getInitials() }}
+        </a>
+
+      </div>
+
+    </header>
+
+
+    <!-- =========================================
+         SALUDO
+    ========================================== -->
+    <section class="welcome-section">
+
+      <h2>
+        ¡Hola, {{ getName() }}! 👋
+      </h2>
+
+      <p>
+        Bienvenido de vuelta a TeleMed IA.
+        <span *ngIf="unreadCount > 0">
+          Tienes {{ unreadCount }}
+          {{ unreadCount === 1 ? 'notificación nueva' : 'notificaciones nuevas' }}.
+        </span>
+      </p>
+
+    </section>
+
+
+    <!-- =========================================
+         LOADING
+    ========================================== -->
+
+    <app-loading *ngIf="loading"></app-loading>
+
+
+    <!-- =========================================
+         ERROR
+    ========================================== -->
+
+    <div
+      *ngIf="!loading && error"
+      class="dashboard-error"
+    >
+      <ion-icon name="warning-outline"></ion-icon>
+
+      <div>
+        <h3>No pudimos cargar tu panel</h3>
+        <p>{{ error }}</p>
+      </div>
+    </div>
+
+
+    <!-- =========================================
+         CONTENIDO
+    ========================================== -->
+
+    <ng-container *ngIf="!loading && !error">
+
+
+      <!-- =========================================
+           BANNER IA
+      ========================================== -->
+
+      <section class="ai-banner">
+
+        <div class="ai-copy">
+
+          <span class="ai-label">
+            SISTEMA DE ASISTENCIA INTELIGENTE
+          </span>
+
+          <h2>
+            Hablar con el Asistente IA
+          </h2>
+
+          <p>
+            Describe tus síntomas en lenguaje natural,
+            recibe orientación lógica preestablecida y
+            prepara tu consulta de forma integrada.
+          </p>
+
+          <ion-button
+            class="ai-button"
+            routerLink="/preconsulta"
+          >
+            Iniciar conversación
+
+            <ion-icon
+              slot="end"
+              name="arrow-forward-outline">
+            </ion-icon>
+          </ion-button>
+
+        </div>
+
+
+        <div class="ai-image">
+
+          <img
+            src="assets/images/IA.png"
+            alt="Asistente inteligente TeleMed IA"
+          >
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================================
+           ESTADÍSTICAS
+      ========================================== -->
+
+      <section class="stats-grid">
+
+        <!-- Consultas realizadas -->
+        <article class="stat-card">
+
+          <div class="stat-icon stat-green">
+            <ion-icon name="checkmark-outline"></ion-icon>
+          </div>
+
+          <div>
+            <span>Consultas realizadas</span>
+
+            <strong>
+              {{ completedCount }}
+            </strong>
+          </div>
+
+        </article>
+
+
+        <!-- Próxima cita -->
+        <article class="stat-card">
+
+          <div class="stat-icon stat-blue">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </div>
+
+          <div>
+
+            <span>Próxima cita</span>
+
+            <strong *ngIf="nextAppointment">
+              {{ nextAppointment.startTime | date:'dd MMM yyyy' }}
+              ·
+              {{ nextAppointment.startTime | date:'h:mm a' }}
+            </strong>
+
+            <strong
+              class="no-data"
+              *ngIf="!nextAppointment"
+            >
+              Sin citas próximas
+            </strong>
+
+          </div>
+
+        </article>
+
+
+        <!-- Notificaciones -->
+        <article class="stat-card">
+
+          <div class="stat-icon stat-orange">
+            <ion-icon name="notifications-outline"></ion-icon>
+          </div>
+
+          <div>
+            <span>Notificaciones nuevas</span>
+
+            <strong>
+              {{ unreadCount }}
+            </strong>
+          </div>
+
+        </article>
+
+      </section>
+
+
+      <!-- =========================================
+           PARTE INFERIOR
+      ========================================== -->
+
+      <section class="dashboard-bottom">
+
+
+        <!-- PRÓXIMAS CITAS -->
+        <article class="dashboard-card">
+
+          <div class="card-heading">
+
+            <div>
+              <h3>Próximas citas</h3>
+
+              <p>
+                Tu agenda médica más cercana.
+              </p>
+            </div>
+
+            <a routerLink="/appointments">
+              Ver todas
+            </a>
+
+          </div>
+
+
+          <div
+            class="dashboard-empty"
+            *ngIf="upcoming.length === 0"
+          >
+            <ion-icon name="calendar-outline"></ion-icon>
+
+            <strong>No tienes citas próximas</strong>
+
+            <span>
+              Agenda una consulta cuando lo necesites.
+            </span>
+
+            <a routerLink="/appointments/book">
+              Agendar cita
+            </a>
+          </div>
+
+
+          <div
+            class="appointment-list"
+            *ngIf="upcoming.length > 0"
+          >
+
+            <article
+              class="appointment-row"
+              *ngFor="let a of upcoming"
+            >
+
+              <div class="date-box">
+
+                <strong>
+                  {{ a.startTime | date:'dd' }}
+                </strong>
+
+                <span>
+                  {{ a.startTime | date:'MMM' }}
+                </span>
+
+              </div>
+
+
+              <div class="appointment-info">
+
+                <strong>
+                  {{ a.professional?.user?.fullName || 'Profesional' }}
+                </strong>
+
+                <span>
+                  {{ a.professional?.specialty?.name || 'Medicina general' }}
+                </span>
+
+                <small>
+                  {{ a.startTime | date:'h:mm a' }}
+                  ·
+                  {{ formatDate(a.startTime) }}
+                </small>
+
+              </div>
+
+
+              <span [class]="statusClass(a.status)">
+                {{ a.status.replace('_', ' ') }}
+              </span>
+
+            </article>
+
+          </div>
+
+        </article>
+
+
+        <!-- ACTIVIDAD RECIENTE -->
+        <article class="dashboard-card">
+
+          <div class="card-heading">
+
+            <div>
+              <h3>Actividad reciente</h3>
+
+              <p>
+                Tus últimas novedades.
+              </p>
+            </div>
+
+            <a routerLink="/notifications">
+              Ver historial
+            </a>
+
+          </div>
+
+
+          <div
+            class="dashboard-empty"
+            *ngIf="recentNotifications.length === 0"
+          >
+            <ion-icon name="notifications-outline"></ion-icon>
+
+            <strong>Sin actividad reciente</strong>
+
+            <span>
+              Aquí aparecerán tus novedades.
+            </span>
+          </div>
+
+
+          <div
+            class="activity-list"
+            *ngIf="recentNotifications.length > 0"
+          >
+
+            <article
+              class="activity-row"
+              *ngFor="let notification of recentNotifications"
+            >
+
+              <div class="activity-icon">
+                <ion-icon name="notifications-outline"></ion-icon>
+              </div>
+
+
+              <div class="activity-info">
+
+                <strong>
+                  {{ notification.type || 'Notificación' }}
+                </strong>
+
+                <p>
+                  {{ notification.message }}
+                </p>
+
+                <small>
+                  {{ notification.sentAt | date:'dd MMM · h:mm a' }}
+                </small>
+
+              </div>
+
+
+              <span
+                class="unread-indicator"
+                *ngIf="!notification.read">
+              </span>
+
+            </article>
+
+          </div>
+
+        </article>
+
+      </section>
+
+    </ng-container>
+
+  </div>
+
+</app-shell>

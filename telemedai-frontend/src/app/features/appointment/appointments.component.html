@@ -1,0 +1,75 @@
+<app-shell>
+  <div class="page-shell">
+    <div class="page-container">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">AGENDA</span>
+          <h1 class="page-title">Mis citas</h1>
+          <p class="page-subtitle">Consulta, cancela o reprograma tus citas.</p>
+        </div>
+        <ion-button class="btn-primary" routerLink="/appointments/book">
+          <ion-icon slot="start" name="add-outline"></ion-icon>
+          Nueva cita
+        </ion-button>
+      </div>
+
+      <div class="filters card">
+        <button [class.active]="filter === 'TODAS'" (click)="filter = 'TODAS'">Todas</button>
+        <button [class.active]="filter === 'CONFIRMADA'" (click)="filter = 'CONFIRMADA'">Confirmadas</button>
+        <button [class.active]="filter === 'REPROGRAMADA'" (click)="filter = 'REPROGRAMADA'">Reprogramadas</button>
+        <button [class.active]="filter === 'COMPLETADA'" (click)="filter = 'COMPLETADA'">Completadas</button>
+        <button [class.active]="filter === 'CANCELADA'" (click)="filter = 'CANCELADA'">Canceladas</button>
+      </div>
+
+      <app-loading *ngIf="loading"></app-loading>
+
+      <div class="appointment-grid" *ngIf="!loading">
+        <article class="appointment-card card" *ngFor="let a of filtered">
+          <div class="top">
+            <span [class]="statusClass(a.status)">{{ a.status.replace('_', ' ') }}</span>
+            <span>#{{ a.id }}</span>
+          </div>
+
+          <div class="doctor">
+            <div class="doctor-avatar">
+              <ion-icon name="medkit-outline"></ion-icon>
+            </div>
+            <div>
+              <h3>{{ a.professional?.user?.fullName || 'Profesional' }}</h3>
+              <p>{{ a.professional?.specialty?.name || 'Especialidad' }}</p>
+            </div>
+          </div>
+
+          <div class="date-row">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span>{{ a.startTime | date : 'EEEE, dd MMMM yyyy' }}</span>
+          </div>
+
+          <div class="date-row">
+            <ion-icon name="time-outline"></ion-icon>
+            <span>{{ a.startTime | date : 'HH:mm' }} - {{ a.endTime | date : 'HH:mm' }}</span>
+          </div>
+
+          <p class="reason" *ngIf="a.cancellationReason">
+            <strong>Motivo:</strong> {{ a.cancellationReason }}
+          </p>
+
+          <div class="actions" *ngIf="a.status === 'CONFIRMADA' || a.status === 'REPROGRAMADA'">
+            <ion-button fill="outline" size="small" class="btn-outline" (click)="cancel(a)">
+              Cancelar
+            </ion-button>
+            <ion-button fill="clear" size="small" [routerLink]="['/appointments/reschedule', a.id]">
+              Reprogramar
+            </ion-button>
+          </div>
+        </article>
+
+        <div class="card empty-state" *ngIf="filtered.length === 0">
+          <ion-icon name="calendar-clear-outline"></ion-icon>
+          <h3>No hay citas en este filtro</h3>
+          <p>Cuando agendes una consulta aparecerá aquí.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-shell>

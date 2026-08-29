@@ -1,0 +1,79 @@
+.cards {
+  display: grid;
+  gap: 12px;
+}
+
+.ap-card {
+  padding: 17px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.date {
+  width: 60px;
+  height: 65px;
+  border-radius: 12px;
+  background: #eef5ff;
+  color: #2c7be5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.date strong {
+  font-size: 21px;
+}
+
+.date span {
+  font-size: 10px;
+}
+
+.info {
+  flex: 1;
+}
+
+.info > span {
+  font-size: 11px;
+  color: #2c7be5;
+}
+
+.info h3 {
+  margin: 4px 0;
+  color: #172b4d;
+}
+
+.info p {
+  margin: 0;
+  color: #8a96a6;
+  font-size: 12px;
+}
+
+.right {
+  text-align: right;
+}
+
+.status-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2px;
+  margin-top: 8px;
+}
+
+@media (max-width: 700px) {
+  .ap-card {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .right {
+    width: 100%;
+    text-align: left;
+  }
+
+  .status-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}

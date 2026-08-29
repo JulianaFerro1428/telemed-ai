@@ -1,0 +1,104 @@
+.filters {
+  display: flex;
+  gap: 4px;
+  padding: 6px;
+  margin-bottom: 18px;
+  overflow: auto;
+}
+
+.filters button {
+  border: 0;
+  background: transparent;
+  padding: 9px 13px;
+  border-radius: 9px;
+  color: #718096;
+  white-space: nowrap;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.filters button.active {
+  background: #eef5ff;
+  color: #2c7be5;
+}
+
+.appointment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.appointment-card {
+  padding: 20px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #8a96a6;
+  font-size: 11px;
+}
+
+.doctor {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 18px 0;
+}
+
+.doctor-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #eef5ff;
+  color: #2c7be5;
+  display: grid;
+  place-items: center;
+  font-size: 23px;
+}
+
+.doctor h3 {
+  margin: 0;
+  color: #172b4d;
+  font-size: 16px;
+}
+
+.doctor p {
+  margin: 3px 0;
+  color: #2c7be5;
+  font-size: 12px;
+}
+
+.date-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #637389;
+  font-size: 13px;
+  margin: 8px 0;
+}
+
+.date-row ion-icon {
+  color: #2c7be5;
+}
+
+.reason {
+  font-size: 12px;
+  color: #7a8798;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #edf0f5;
+  margin-top: 17px;
+  padding-top: 13px;
+  gap: 6px;
+}
+
+@media (max-width: 900px) {
+  .appointment-grid {
+    grid-template-columns: 1fr;
+  }
+}

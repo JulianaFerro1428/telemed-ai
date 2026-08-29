@@ -1,0 +1,235 @@
+<div class="app-layout">
+
+  <!-- =====================================
+       SIDEBAR
+  ====================================== -->
+  <aside class="sidebar">
+
+    <!-- Logo -->
+    <a class="side-brand" routerLink="/dashboard">
+
+      <img
+        class="side-logo"
+        src="assets/images/logo.svg"
+        alt="TeleMed IA"
+        width="45"
+        height="45"
+      >
+
+      <span>
+        TeleMed <b>IA</b>
+      </span>
+
+    </a>
+
+
+    <!-- Usuario -->
+    <div class="profile-mini">
+
+      <div class="avatar">
+        {{ (user?.fullName || 'U').charAt(0) }}
+      </div>
+
+      <div>
+        <strong>
+          {{ user?.fullName || 'Usuario' }}
+        </strong>
+
+        <small>
+          {{ role }}
+        </small>
+      </div>
+
+    </div>
+
+
+    <!-- Navegación -->
+    <nav>
+
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="active"
+      >
+        <ion-icon name="grid-outline"></ion-icon>
+        Inicio
+      </a>
+
+
+      <a
+        *ngIf="role === 'PACIENTE' || role === 'ADMIN'"
+        routerLink="/appointments"
+        routerLinkActive="active"
+      >
+        <ion-icon name="calendar-outline"></ion-icon>
+        Mis citas
+      </a>
+
+
+      <a
+        *ngIf="role === 'PACIENTE' || role === 'ADMIN'"
+        routerLink="/appointments/book"
+        routerLinkActive="active"
+      >
+        <ion-icon name="add-circle-outline"></ion-icon>
+        Agendar cita
+      </a>
+
+
+      <a
+        *ngIf="role === 'PACIENTE' || role === 'ADMIN'"
+        routerLink="/preconsulta"
+        routerLinkActive="active"
+      >
+        <ion-icon name="sparkles-outline"></ion-icon>
+        Preconsulta IA
+      </a>
+
+
+      <a
+        *ngIf="role === 'PACIENTE' || role === 'ADMIN'"
+        routerLink="/history"
+        routerLinkActive="active"
+      >
+        <ion-icon name="document-text-outline"></ion-icon>
+        Historial
+      </a>
+
+
+      <a
+        *ngIf="role === 'PACIENTE' || role === 'ADMIN'"
+        routerLink="/profile"
+        routerLinkActive="active"
+      >
+        <ion-icon name="person-outline"></ion-icon>
+        Mi perfil
+      </a>
+
+
+      <a
+        *ngIf="role === 'PROFESIONAL' || role === 'ADMIN'"
+        routerLink="/professional/schedule"
+        routerLinkActive="active"
+      >
+        <ion-icon name="time-outline"></ion-icon>
+        Agenda
+      </a>
+
+
+      <a
+        *ngIf="role === 'PROFESIONAL' || role === 'ADMIN'"
+        routerLink="/professional/appointments"
+        routerLinkActive="active"
+      >
+        <ion-icon name="clipboard-outline"></ion-icon>
+        Citas profesionales
+      </a>
+
+
+      <a
+        *ngIf="role === 'PROFESIONAL' || role === 'ADMIN'"
+        routerLink="/professional/attention"
+        routerLinkActive="active"
+      >
+        <ion-icon name="medkit-outline"></ion-icon>
+        Atención médica
+      </a>
+
+
+      <a
+        *ngIf="role === 'ADMIN'"
+        routerLink="/admin/professionals"
+        routerLinkActive="active"
+      >
+        <ion-icon name="people-outline"></ion-icon>
+        Profesionales
+      </a>
+
+
+      <a
+        *ngIf="role === 'ADMIN'"
+        routerLink="/admin/users"
+        routerLinkActive="active"
+      >
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+        Usuarios
+      </a>
+
+
+      <a
+        routerLink="/notifications"
+        routerLinkActive="active"
+      >
+        <ion-icon name="notifications-outline"></ion-icon>
+        Notificaciones
+      </a>
+
+    </nav>
+
+
+    <!-- Cerrar sesión -->
+    <button
+      class="logout"
+      type="button"
+      (click)="logout()"
+    >
+      <ion-icon name="log-out-outline"></ion-icon>
+      Cerrar sesión
+    </button>
+
+  </aside>
+
+
+  <!-- =====================================
+       CONTENIDO PRINCIPAL
+  ====================================== -->
+  <main class="main-area">
+    <ng-content></ng-content>
+  </main>
+
+
+  <!-- =====================================
+       NAVEGACIÓN MÓVIL
+  ====================================== -->
+  <nav class="bottom-nav">
+
+    <a
+      routerLink="/dashboard"
+      routerLinkActive="active"
+    >
+      <ion-icon name="home-outline"></ion-icon>
+      <span>Inicio</span>
+    </a>
+
+
+    <a
+      *ngIf="role === 'PACIENTE'"
+      routerLink="/appointments"
+      routerLinkActive="active"
+    >
+      <ion-icon name="calendar-outline"></ion-icon>
+      <span>Citas</span>
+    </a>
+
+
+    <a
+      *ngIf="role === 'PACIENTE'"
+      routerLink="/history"
+      routerLinkActive="active"
+    >
+      <ion-icon name="document-text-outline"></ion-icon>
+      <span>Historial</span>
+    </a>
+
+
+    <a
+      *ngIf="role === 'PACIENTE' || role === 'ADMIN'"
+      routerLink="/profile"
+      routerLinkActive="active"
+    >
+      <ion-icon name="person-outline"></ion-icon>
+      <span>Perfil</span>
+    </a>
+
+  </nav>
+
+</div>

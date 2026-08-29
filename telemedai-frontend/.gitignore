@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.angular/
+.capacitor/
+*.log
+.DS_Store
+.vscode/

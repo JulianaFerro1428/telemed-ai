@@ -1,0 +1,113 @@
+<app-shell>
+  <div class="page-shell">
+    <div class="page-container">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">ADMINISTRACIÓN</span>
+          <h1 class="page-title">Profesionales</h1>
+          <p class="page-subtitle">Registra y consulta profesionales de la salud.</p>
+        </div>
+        <ion-button class="btn-primary" (click)="showForm = !showForm">
+          <ion-icon slot="start" name="add-outline"></ion-icon>
+          {{ showForm ? 'Cerrar' : 'Registrar profesional' }}
+        </ion-button>
+      </div>
+
+      <section class="card create-card" *ngIf="showForm">
+        <h2>Nuevo profesional</h2>
+        <p>Los IDs de especialidad vienen de las semillas del backend: 1 Medicina General, 2 Pediatría, 3 Dermatología, 4 Cardiología.</p>
+
+        <form [formGroup]="form" (ngSubmit)="save()">
+          <div class="form-grid">
+            <ion-item>
+              <ion-input
+                label="Nombre completo"
+                labelPlacement="stacked"
+                formControlName="fullName"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input
+                label="Correo"
+                labelPlacement="stacked"
+                type="email"
+                formControlName="email"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input
+                label="Documento"
+                labelPlacement="stacked"
+                formControlName="identityDocument"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input
+                label="Contraseña temporal"
+                labelPlacement="stacked"
+                type="password"
+                formControlName="password"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input
+                label="Número de licencia"
+                labelPlacement="stacked"
+                formControlName="licenseNumber"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-select
+                label="Especialidad"
+                labelPlacement="stacked"
+                formControlName="specialtyId"
+              >
+                <ion-select-option [value]="1">Medicina General</ion-select-option>
+                <ion-select-option [value]="2">Pediatría</ion-select-option>
+                <ion-select-option [value]="3">Dermatología</ion-select-option>
+                <ion-select-option [value]="4">Cardiología</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-input
+                label="Años de experiencia"
+                labelPlacement="stacked"
+                type="number"
+                formControlName="yearsExperience"
+              ></ion-input>
+            </ion-item>
+          </div>
+
+          <ion-button
+            class="btn-primary"
+            type="submit"
+            [disabled]="saving"
+          >
+            {{ saving ? 'Guardando...' : 'Crear profesional' }}
+          </ion-button>
+        </form>
+      </section>
+
+      <app-loading *ngIf="loading"></app-loading>
+
+      <section class="professional-grid" *ngIf="!loading">
+        <article class="card professional-card" *ngFor="let p of items">
+          <div class="avatar">
+            <ion-icon name="medical-outline"></ion-icon>
+          </div>
+          <div>
+            <h3>{{ p.user?.fullName }}</h3>
+            <span>{{ p.specialty?.name }}</span>
+            <p>Licencia: {{ p.licenseNumber }}</p>
+            <small>{{ p.yearsExperience }} años de experiencia · {{ p.user?.email }}</small>
+          </div>
+        </article>
+
+        <div class="card empty-state" *ngIf="items.length === 0">
+          <ion-icon name="people-outline"></ion-icon>
+          <p>No hay profesionales registrados.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</app-shell>

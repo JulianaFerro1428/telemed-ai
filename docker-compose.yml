@@ -1,29 +1,40 @@
 services:
+
   postgres:
     image: postgres:16-alpine
     container_name: telemed-postgres
     restart: unless-stopped
+
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-telemed}
       POSTGRES_USER: ${POSTGRES_USER:-telemed}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-telemed}
+
     ports:
       - "5432:5432"
+
     volumes:
       - telemed_pgdata:/var/lib/postgresql/data
+
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-telemed} -d ${POSTGRES_DB:-telemed}"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  app:
-    build: .
-    container_name: telemed-app
+
+  backend:
+    build:
+      context: ./telemedai-backend
+      dockerfile: Dockerfile
+
+    container_name: telemed-backend
     restart: unless-stopped
+
     depends_on:
       postgres:
         condition: service_healthy
+
     environment:
       SPRING_PROFILES_ACTIVE: prod
       DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-telemed}
@@ -31,8 +42,25 @@ services:
       DB_PASSWORD: ${POSTGRES_PASSWORD:-telemed}
       JWT_SECRET: ${JWT_SECRET}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:4200}
+
     ports:
       - "8080:8080"
+
+
+  frontend:
+    build:
+      context: ./telemedai-frontend
+      dockerfile: Dockerfile
+
+    container_name: telemed-frontend
+    restart: unless-stopped
+
+    depends_on:
+      - backend
+
+    ports:
+      - "4200:4200"
+
 
 volumes:
   telemed_pgdata:

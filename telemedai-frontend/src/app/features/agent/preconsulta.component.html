@@ -11,6 +11,7 @@
 
         <div class="search-box">
           <ion-icon name="search-outline"></ion-icon>
+
           <input
             type="text"
             placeholder="Buscar médicos o especialidades..."
@@ -46,33 +47,167 @@
       <div class="chat-header">
 
         <div>
-          <h2>Nueva preconsulta</h2>
+          <h2>Preconsulta con TeleMed IA</h2>
+
           <p>
-            Describe tus síntomas o el motivo de tu consulta para que la IA organice tu información.
+            Responde las preguntas del asistente para organizar
+            la información que revisará el profesional de salud.
           </p>
         </div>
 
-        <span class="chat-status">
-          En curso
+
+        <!-- ESTADO -->
+        <span
+          class="chat-status"
+          [class.status-complete]="preconsultationComplete"
+          [class.status-expired]="sessionExpired"
+        >
+
+          <ng-container *ngIf="sessionExpired">
+            Expirada
+          </ng-container>
+
+          <ng-container
+            *ngIf="
+              !sessionExpired &&
+              preconsultationComplete
+            "
+          >
+            Finalizada
+          </ng-container>
+
+          <ng-container
+            *ngIf="
+              !sessionExpired &&
+              !preconsultationComplete
+            "
+          >
+            En curso
+          </ng-container>
+
         </span>
 
       </div>
 
 
-      <!-- ZONA VACÍA -->
-      <div class="chat-body empty-chat">
+      <!-- CUERPO DEL CHAT -->
+      <div class="chat-body">
 
-        <div class="empty-state">
+        <!-- CARGANDO CONVERSACIÓN INICIAL -->
+        <div
+          class="empty-state"
+          *ngIf="
+            loading &&
+            messages.length === 0
+          "
+        >
 
           <div class="empty-icon">
             <ion-icon name="sparkles-outline"></ion-icon>
           </div>
 
-          <h3>Inicia tu conversación con la IA</h3>
+          <h3>Preparando tu preconsulta</h3>
 
           <p>
-            Escribe tu mensaje en la parte inferior para comenzar tu preconsulta.
+            TeleMed IA está iniciando la conversación...
           </p>
+
+          <ion-spinner name="dots"></ion-spinner>
+
+        </div>
+
+
+        <!-- MENSAJES -->
+        <div
+          class="messages-container"
+          *ngIf="messages.length > 0"
+        >
+
+          <div
+            *ngFor="let message of messages"
+            class="message-row"
+            [class.agent-row]="message.sender === 'AGENT'"
+            [class.patient-row]="message.sender === 'PATIENT'"
+          >
+
+            <!-- AVATAR IA -->
+            <div
+              class="message-avatar agent-avatar"
+              *ngIf="message.sender === 'AGENT'"
+            >
+              <ion-icon name="sparkles-outline"></ion-icon>
+            </div>
+
+
+            <!-- BURBUJA -->
+            <div
+              class="message-bubble"
+              [class.agent-message]="message.sender === 'AGENT'"
+              [class.patient-message]="message.sender === 'PATIENT'"
+            >
+
+              <!-- NOMBRE -->
+              <span
+                class="message-author"
+                *ngIf="message.sender === 'AGENT'"
+              >
+                TeleMed IA
+              </span>
+
+              <p>
+                {{ message.content }}
+              </p>
+
+              <span class="message-time">
+                {{
+                  message.timestamp
+                    | date:'shortTime'
+                }}
+              </span>
+
+            </div>
+
+
+            <!-- AVATAR PACIENTE -->
+            <div
+              class="message-avatar patient-avatar"
+              *ngIf="message.sender === 'PATIENT'"
+            >
+              <ion-icon name="person-outline"></ion-icon>
+            </div>
+
+          </div>
+
+
+          <!-- IA PENSANDO -->
+          <div
+            class="message-row agent-row"
+            *ngIf="
+              loading &&
+              messages.length > 0 &&
+              !preconsultationComplete
+            "
+          >
+
+            <div class="message-avatar agent-avatar">
+              <ion-icon name="sparkles-outline"></ion-icon>
+            </div>
+
+            <div class="message-bubble agent-message typing-message">
+
+              <span class="message-author">
+                TeleMed IA
+              </span>
+
+              <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+            </div>
+
+          </div>
 
         </div>
 
@@ -80,29 +215,57 @@
 
 
       <!-- INPUT -->
-      <div class="chat-input-area">
+      <div
+        class="chat-input-area"
+        *ngIf="
+          !preconsultationComplete &&
+          !sessionExpired
+        "
+      >
 
         <div class="input-wrapper">
 
           <textarea
             rows="1"
-            placeholder="Escribe aquí tu consulta..."
+            maxlength="1500"
+            placeholder="Escribe tu respuesta..."
+            [(ngModel)]="currentMessage"
+            [disabled]="
+              loading ||
+              conversationId === null
+            "
           ></textarea>
 
+
+          <!--
+            Por ahora no habilitamos adjuntos.
+            No queremos aparentar una funcionalidad
+            que todavía no existe.
+          -->
           <button
             type="button"
             class="attach-button"
             aria-label="Adjuntar archivo"
+            disabled
+            title="Próximamente"
           >
             <ion-icon name="attach-outline"></ion-icon>
           </button>
 
         </div>
 
+
+        <!-- ENVIAR -->
         <button
           type="button"
           class="send-button"
           aria-label="Enviar mensaje"
+          (click)="sendMessage()"
+          [disabled]="
+            loading ||
+            conversationId === null ||
+            !currentMessage.trim()
+          "
         >
           <ion-icon name="send-outline"></ion-icon>
         </button>
@@ -110,12 +273,66 @@
       </div>
 
 
+      <!-- PRECONSULTA COMPLETADA -->
+      <div
+        class="conversation-finished"
+        *ngIf="preconsultationComplete"
+      >
+
+        <ion-icon name="sparkles-outline"></ion-icon>
+
+        <div>
+
+          <strong>
+            Preconsulta completada
+          </strong>
+
+          <p>
+            Tu información fue preparada para que
+            el profesional de salud pueda revisarla
+            antes de tu cita.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- SESIÓN EXPIRADA -->
+      <div
+        class="conversation-expired"
+        *ngIf="sessionExpired"
+      >
+
+        <ion-icon name="information-circle-outline"></ion-icon>
+
+        <div>
+
+          <strong>
+            La sesión finalizó por inactividad
+          </strong>
+
+          <p>
+            Inicia una nueva preconsulta si deseas continuar.
+          </p>
+
+        </div>
+
+      </div>
+
+
       <!-- AVISO -->
       <div class="medical-note">
+
         <ion-icon name="information-circle-outline"></ion-icon>
+
         <span>
-          El asistente solo organiza la información de tu consulta. No diagnostica ni prescribe medicamentos.
+          TeleMed IA recopila y organiza la información que proporcionas
+          para que pueda ser revisada por un profesional de salud.
+          No realiza diagnósticos, no prescribe medicamentos
+          y no define tratamientos.
         </span>
+
       </div>
 
     </section>

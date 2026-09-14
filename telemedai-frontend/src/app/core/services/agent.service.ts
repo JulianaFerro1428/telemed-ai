@@ -1,33 +1,73 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { Conversation, Message } from '../models';
+
+import {
+  StartConversationResponse,
+  SendMessageResponse,
+  PreconsultationSummaryResponse
+} from '../models/agent.models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgentService {
-  private readonly http = inject(HttpClient);
-  private readonly base = environment.apiUrl;
 
-  start(patientId: number): Observable<Conversation> {
-    return this.http.post<Conversation>(`${this.base}/agent/conversations`, { patientId });
+  /**
+   * Endpoint del módulo Agent del backend.
+   *
+   * Más adelante podemos mover esta URL
+   * a environment.ts.
+   */
+  private readonly apiUrl =
+    'http://localhost:8080/api/agent';
+
+  constructor(
+    private readonly http: HttpClient
+  ) {}
+
+  /**
+   * Inicia una nueva conversación.
+   *
+   * El frontend NO envía patientId.
+   * El backend obtiene el paciente mediante el JWT.
+   */
+  startConversation():
+    Observable<StartConversationResponse> {
+
+    return this.http.post<StartConversationResponse>(
+      `${this.apiUrl}/conversations`,
+      {}
+    );
   }
 
-  message(id: number, content: string): Observable<Message> {
-    return this.http.post<Message>(`${this.base}/agent/conversations/${id}/messages`, { content });
+  /**
+   * Envía un mensaje del paciente.
+   */
+  sendMessage(
+    conversationId: number,
+    message: string
+  ): Observable<SendMessageResponse> {
+
+    return this.http.post<SendMessageResponse>(
+      `${this.apiUrl}/conversations/${conversationId}/messages`,
+      {
+        message
+      }
+    );
   }
 
-  finish(id: number): Observable<Conversation> {
-    return this.http.post<Conversation>(`${this.base}/agent/conversations/${id}/finish`, {});
-  }
+  /**
+   * Finaliza la preconsulta y solicita
+   * la generación del resumen.
+   */
+  finishConversation(
+    conversationId: number
+  ): Observable<PreconsultationSummaryResponse> {
 
-  get(id: number): Observable<Conversation> {
-    return this.http.get<Conversation>(`${this.base}/agent/conversations/${id}`);
-  }
-
-  byPatient(id: number): Observable<Conversation[]> {
-    return this.http.get<Conversation[]>(`${this.base}/agent/patients/${id}/conversations`);
+    return this.http.post<PreconsultationSummaryResponse>(
+      `${this.apiUrl}/conversations/${conversationId}/finish`,
+      {}
+    );
   }
 }
